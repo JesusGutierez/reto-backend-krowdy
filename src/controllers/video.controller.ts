@@ -74,6 +74,14 @@ class VideoController {
             throw error
         }
     }
+
+    async joinVideo(nameVideo: string) {
+        try {
+            await SonyVegasController.joinVideo(nameVideo)
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 export default new VideoController()

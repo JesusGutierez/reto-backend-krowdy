@@ -1,5 +1,6 @@
 import { Response, } from 'restify';
 import { Router, } from 'restify-router';
+import routerInstance from '.';
 import videoController from '../controllers/video.controller';
 
 const router = new Router();
@@ -27,6 +28,17 @@ router.post('/cutvideo', async (req, res): Promise<Response> => {
     const {nameVideo, startTime, endTime, numberCpusAvailables} = req.body
     console.log("🚀 ~ file: video.routes.ts ~ line 28 ~ router.get ~ nameVideo", nameVideo)
     await videoController.cutVideo(nameVideo, startTime, endTime, numberCpusAvailables)
+    return res.json({ success: true, });
+  } catch (error) {
+    return res.json({succes: false, error: error.stack})
+  }
+});
+
+router.post('/joinVideo', async (req, res): Promise<Response> => {
+  try {
+    const {nameVideo} = req.body
+    console.log("🚀 ~ file: video.routes.ts ~ line 40 ~ router.post ~ nameVideo", nameVideo)
+    await videoController.joinVideo(nameVideo)
     return res.json({ success: true, });
   } catch (error) {
     return res.json({succes: false, error: error.stack})

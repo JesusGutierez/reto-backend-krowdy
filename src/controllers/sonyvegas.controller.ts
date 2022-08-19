@@ -7,7 +7,7 @@ import uuid4 from "uuid4";
 class SonyVegasByBootcamp {
     dirVideos: string;
     constructor(){
-        this.dirVideos = `${__dirname.split('/').slice(0,5).join('/')}/srcvideos`
+        this.dirVideos = `${__dirname.replaceAll('\\', '/').split('/').slice(0,5).join('/')}/srcvideos`
     }
     async ffmpeg(argsFfmpeg: any) {
         try {
@@ -68,6 +68,31 @@ class SonyVegasByBootcamp {
             await this.ffmpeg(args)
         } catch (error) {
             console.log("🚀 ~ file: sonyvegas.controller.ts ~ line 67 ~ SonyVegasByBootcamp ~ cutVideo ~ error", error)
+            throw error
+        }
+    }
+
+    async joinVideo(nameVideo: string) {
+        try {
+            let extensionVideo = '.mp4';
+            let videoSource = {
+                srcListVideos: `${this.dirVideos}/videosToJoin.txt`,
+                srcVideoOutput: `${this.dirVideos}/${nameVideo}-${uuid4()}${extensionVideo}`
+            };
+            console.log('videoSource', videoSource);
+            // ffmpeg -f concat -safe 0 -i videosToJoin.txt -c copy resultado.mp4
+            console.log("🚀 ~ file: sonyvegas.controller.ts ~ line 83 ~ SonyVegasByBootcamp ~ cutVideo ~ videoSource", videoSource)
+            let args = [
+                '-f',
+                'concat',
+                '-i',
+                videoSource?.srcListVideos,
+                videoSource?.srcVideoOutput
+            ]
+
+            await this.ffmpeg(args)
+        } catch (error) {
+            console.log("🚀 ~ file: sonyvegas.controller.ts ~ line 79 ~ SonyVegasByBootcamp ~ joinVIdeo ~ error", error)
             throw error
         }
     }
