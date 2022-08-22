@@ -3,6 +3,7 @@ import { mkdirSync, existsSync, appendFileSync } from 'fs'
 import { join } from 'path'
 import { tmpdir } from 'os'
 import uuid4 from "uuid4";
+var fs = require('fs');
 
 class SonyVegasByBootcamp {
     dirVideos: string;
@@ -72,15 +73,25 @@ class SonyVegasByBootcamp {
         }
     }
 
-    async joinVideo(nameVideo: string) {
+    async joinVideo(videoNames: any, resulVideo: string) {
         try {
             let extensionVideo = '.mp4';
+            let txtVideos = '';
             let videoSource = {
                 srcListVideos: `${this.dirVideos}/videosToJoin.txt`,
-                srcVideoOutput: `${this.dirVideos}/${nameVideo}-${uuid4()}${extensionVideo}`
+                srcVideoOutput: `${this.dirVideos}/${resulVideo}-${uuid4()}${extensionVideo}`
             };
-            console.log('videoSource', videoSource);
-            // ffmpeg -f concat -safe 0 -i videosToJoin.txt -c copy resultado.mp4
+
+            videoNames?.map((name: string) => {
+                txtVideos += `file '${name}${extensionVideo}'` + "\r\n"
+            });
+            console.log('txtVideos', txtVideos);
+            fs.writeFile(videoSource.srcListVideos, txtVideos, 'utf-8', function(err: any) {
+                if (err) throw err;
+                console.log('Done!');
+            })
+
+            // ffmpeg -f concat -safe 0 -protocol_whitelist file,http,https,tls,tcp -i videosToJoin.txt -c copy resultado.mp4
             console.log("🚀 ~ file: sonyvegas.controller.ts ~ line 83 ~ SonyVegasByBootcamp ~ cutVideo ~ videoSource", videoSource)
             let args = [
                 '-f',
@@ -97,6 +108,35 @@ class SonyVegasByBootcamp {
         }
     }
 
+    // No funcional
+    async blurVideo(nameVideo: string) {
+        try {
+            let extensionVideo = '.mp4';
+            let videoSource = {
+                srcListVideos: `${this.dirVideos}/${nameVideo}${extensionVideo}`,
+                srcVideoOutput: `${this.dirVideos}/blur-${nameVideo}-${uuid4()}${extensionVideo}`
+            };
+            /* ffmpeg -i video_5.mp4 -lavfi '[0:v]scale=ih*16/9:-1,boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1[bg];[bg][0:v]overlay=(W-w)/2:(H-h)/2,crop=h=iw*9/16' -vb 800K danceblur.mp4 */
+            console.log("🚀 ~ file: sonyvegas.controller.ts ~ line 83 ~ SonyVegasByBootcamp ~ blurVIdeo ~ videoSource", videoSource)
+            let args = [
+                '-i',
+                "[o:v]scale=ih*16/9:",
+
+            ];
+        } catch (error) {
+            console.log("🚀 ~ file: sonyvegas.controller.ts ~ line 108 ~ SonyVegasByBootcamp ~ blurVideo ~ error", error)
+            throw error
+        }
+    }
+
+    async getInfoVideos(themeVideos: string){
+        try {
+            let extensionVideo = '.mp4';
+        } catch (error) {
+            console.log("🚀 ~ file: sonyvegas.controller.ts ~ line 108 ~ SonyVegasByBootcamp ~ getInfoVideos ~ error", error)
+            throw error;
+        }
+    }
 
     async cutVideos(videoSources: any[]) {
         try {

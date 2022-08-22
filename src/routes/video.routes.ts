@@ -36,9 +36,9 @@ router.post('/cutvideo', async (req, res): Promise<Response> => {
 
 router.post('/joinVideo', async (req, res): Promise<Response> => {
   try {
-    const {nameVideo} = req.body
-    console.log("🚀 ~ file: video.routes.ts ~ line 40 ~ router.post ~ nameVideo", nameVideo)
-    await videoController.joinVideo(nameVideo)
+    const {videoNames, resulVideo} = req.body
+    console.log("🚀 ~ file: video.routes.ts ~ line 40 ~ router.post ~ nameVideo", resulVideo)
+    await videoController.joinVideo(videoNames, resulVideo)
     return res.json({ success: true, });
   } catch (error) {
     return res.json({succes: false, error: error.stack})

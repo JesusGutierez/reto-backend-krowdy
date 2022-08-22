@@ -75,9 +75,9 @@ class VideoController {
         }
     }
 
-    async joinVideo(nameVideo: string) {
+    async joinVideo(videoNames: any,resulVideo: string) {
         try {
-            await SonyVegasController.joinVideo(nameVideo)
+            await SonyVegasController.joinVideo(videoNames, resulVideo)
         } catch (error) {
             throw error
         }
