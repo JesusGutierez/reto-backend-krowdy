@@ -16,5 +16,5 @@ yarn dev
 ```
 
 ### Consumir el API
-Aquí dejo la documentación del API.
+Aquí dejo la documentación de como consumir el API.
 https://documenter.getpostman.com/view/17451415/VUqrMGrJ
