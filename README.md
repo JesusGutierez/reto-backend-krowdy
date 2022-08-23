@@ -1,41 +1,20 @@
+# Esta es una API para editar y unir videos
 
-// APLICACION ->
+### Iniciar el proyecto
+#### 1. Instalar todas las dependencias con el comando
 
-tiktok->
+```
+yarn
+```
+#### 2. Asegurarse de tener instalado el software ffmpeg en el sistema.
 
-10 videos de tiktok ->
+#### 3. Tener un base de datos en MongoDB y conectarla mediante el .env
 
-1 -> 3minutos
-2 -> 2minutos
+#### 4. Con los requerimientos listos, hay que iniciar el proyecto con el comando
+```
+yarn dev
+```
 
-cada video -> 30 segundos
-
-1reel -> video que tiene los 10 videos en 1 solo
-
-Javascript
-FFMPEG
-NodeJs
-
-// FFMPEG
-// Asincronia
-// 
-
-// con que contamos ? 
-
-// varios videos
-// reel video
-// add like
-// add user request
-
-// APRENDAN LINUX
-
-// terminal
-// comandos
-// configuraciones -> sistema
-// configuraciones -> red
-// configuraciones -> disco
-// configuraciones -> binarios
-// configuraciones -> referencias de archivos
-
-
-ffmpeg -y -i video_1.mp4 -threads 4 -ss 00:00:00 -to 00:00:20 -async 1 video_1_cut.mp4
+### Consumir el API
+Aquí dejo la documentación del API.
+https://documenter.getpostman.com/view/17451415/VUqrMGrJ
